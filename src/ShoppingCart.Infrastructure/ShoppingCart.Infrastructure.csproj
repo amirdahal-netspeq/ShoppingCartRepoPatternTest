@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShoppingCart.Application\ShoppingCart.Application.csproj" />
+    <ProjectReference Include="..\ShoppingCart.Caching\ShoppingCart.Caching.csproj" />
   </ItemGroup>
 
   <ItemGroup>

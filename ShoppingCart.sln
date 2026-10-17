@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Architecture.Tests", "tests\ShoppingCart.Architecture.Tests\ShoppingCart.Architecture.Tests.csproj", "{C89A308B-2B30-4F06-8F25-9627A649E883}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Caching", "src\ShoppingCart.Caching\ShoppingCart.Caching.csproj", "{655F2276-25BA-42FD-AFD3-74FD428EF673}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,18 @@ Global
 		{C89A308B-2B30-4F06-8F25-9627A649E883}.Release|x64.Build.0 = Release|Any CPU
 		{C89A308B-2B30-4F06-8F25-9627A649E883}.Release|x86.ActiveCfg = Release|Any CPU
 		{C89A308B-2B30-4F06-8F25-9627A649E883}.Release|x86.Build.0 = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|x64.Build.0 = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Debug|x86.Build.0 = Debug|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|x64.ActiveCfg = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|x64.Build.0 = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|x86.ActiveCfg = Release|Any CPU
+		{655F2276-25BA-42FD-AFD3-74FD428EF673}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +156,6 @@ Global
 		{7D121B14-06AB-4575-9784-7929F2561E48} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{C0C21295-32EF-4693-9566-38F273E9C04D} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{C89A308B-2B30-4F06-8F25-9627A649E883} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{655F2276-25BA-42FD-AFD3-74FD428EF673} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
