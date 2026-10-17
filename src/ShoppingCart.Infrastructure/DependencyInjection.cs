@@ -19,8 +19,7 @@ namespace ShoppingCart.Infrastructure
                 ?? throw new InvalidOperationException(
                     "Connection string 'DefaultConnection' is not configured.");
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(connectionString));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             // Forward to the SAME context instance the repositories use. If the Unit of Work were a different
             // instance, repositories would add to one change tracker and SaveChanges would save another, empty one.

@@ -6,7 +6,7 @@ namespace ShoppingCart.Infrastructure.Tests
 {
     public class ProductQueriesTest : IDisposable
     {
-        private readonly SqliteTestDatabase _db = new();
+        private readonly SqlServerTestDatabase _db = new();
 
         public void Dispose() => _db.Dispose();
 

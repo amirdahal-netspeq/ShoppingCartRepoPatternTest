@@ -9,7 +9,7 @@ namespace ShoppingCart.Infrastructure.Tests
 {
     public class CartRepositoryTests : IDisposable
     {
-        private readonly SqliteTestDatabase _db = new();
+        private readonly SqlServerTestDatabase _db = new();
         public void Dispose() => _db.Dispose();
 
         private static Money Inr(decimal amount) => new(amount, "INR");

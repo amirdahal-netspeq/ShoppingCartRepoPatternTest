@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppingCart.Infrastructure.Persistence;
@@ -12,27 +13,31 @@ using ShoppingCart.Infrastructure.Persistence;
 namespace ShoppingCart.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261017063425_InitialCreate")]
+    [Migration("20261017115053_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.32");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.32")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("ShoppingCart.Domain.Carts.Cart", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -45,21 +50,21 @@ namespace ShoppingCart.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ShoppingCart.Domain.Carts.CartItem", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CartId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.ComplexProperty<Dictionary<string, object>>("UnitPrice", "ShoppingCart.Domain.Carts.CartItem.UnitPrice#Money", b1 =>
                         {
@@ -67,13 +72,13 @@ namespace ShoppingCart.Infrastructure.Persistence.Migrations
 
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(18, 2)
-                                .HasColumnType("TEXT")
+                                .HasColumnType("decimal(18,2)")
                                 .HasColumnName("UnitPrice");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasMaxLength(3)
-                                .HasColumnType("TEXT")
+                                .HasColumnType("nvarchar(3)")
                                 .HasColumnName("UnitCurrency");
                         });
 
@@ -89,22 +94,22 @@ namespace ShoppingCart.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ShoppingCart.Domain.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("StockQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.ComplexProperty<Dictionary<string, object>>("Price", "ShoppingCart.Domain.Products.Product.Price#Money", b1 =>
                         {
@@ -112,13 +117,13 @@ namespace ShoppingCart.Infrastructure.Persistence.Migrations
 
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(19, 2)
-                                .HasColumnType("TEXT")
+                                .HasColumnType("decimal(19,2)")
                                 .HasColumnName("Price");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasMaxLength(3)
-                                .HasColumnType("TEXT")
+                                .HasColumnType("nvarchar(3)")
                                 .HasColumnName("Currency");
                         });
 

@@ -7,7 +7,7 @@ namespace ShoppingCart.Infrastructure.Tests
 {
     public class ProductRepositoryTests : IDisposable
     {
-        private readonly SqliteTestDatabase _db = new();
+        private readonly SqlServerTestDatabase _db = new();
         public void Dispose() => _db.Dispose();
 
         private static Product NewProduct(string name = "Keyboard", decimal price = 49.99m, int stock = 10)
