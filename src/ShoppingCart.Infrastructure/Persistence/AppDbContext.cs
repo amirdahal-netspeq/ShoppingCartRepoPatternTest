@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Application.Abstractions;
+using ShoppingCart.Application.Common;
 using ShoppingCart.Domain.Carts;
 using ShoppingCart.Domain.Products;
 
@@ -15,5 +16,21 @@ namespace ShoppingCart.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             => modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
+        {
+            try
+            {
+                return await base.SaveChangesAsync(ct);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new DataConflictException("The data was changed by someone else.", ex);
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DataConflictException("The change violates a data constraint.", ex);
+            }
+        }
     }
 }

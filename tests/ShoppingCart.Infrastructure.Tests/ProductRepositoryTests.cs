@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ShoppingCart.Application.Common;
 using ShoppingCart.Domain.Common;
 using ShoppingCart.Domain.Products;
 using ShoppingCart.Infrastructure.Persistence.Repositories;
@@ -51,7 +51,7 @@ namespace ShoppingCart.Infrastructure.Tests
         }
 
         [Fact]
-        public async Task Database_rejects_to_products_with_same_name()
+        public async Task Database_rejects_two_products_with_same_name()
         {
             await using var context = _db.NewContext();
             var repo = new ProductRepository(context);
@@ -59,7 +59,7 @@ namespace ShoppingCart.Infrastructure.Tests
             await repo.AddAsync(NewProduct("Keyboard"));
             await repo.AddAsync(NewProduct("Keyboard"));
 
-            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+            await Assert.ThrowsAsync<DataConflictException>(() => context.SaveChangesAsync());
         }
     }
 }

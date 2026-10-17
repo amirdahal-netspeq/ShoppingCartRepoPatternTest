@@ -8,6 +8,7 @@ namespace ShoppingCart.Architecture.Tests
         private static readonly Assembly Domain = ShoppingCart.Domain.AssemblyReference.Assembly;
         private static readonly Assembly Application = ShoppingCart.Application.AssemblyReference.Assembly;
         private static readonly Assembly Infrastructure = ShoppingCart.Infrastructure.AssemblyReference.Assembly;
+        private static readonly Assembly Api = ShoppingCart.Api.AssemblyReference.Assembly;
 
         [Fact]
         public void Domain_depends_on_nothing_outside_itself()
@@ -34,6 +35,17 @@ namespace ShoppingCart.Architecture.Tests
         {
             var result = Types.InAssembly(Infrastructure).ShouldNot()
                 .HaveDependencyOn("ShoppingCart.Api").GetResult();
+
+            Assert.True(result.IsSuccessful, Failing(result));
+        }
+
+        [Fact]
+        public void Controllers_do_not_depend_on_Infrastructure_or_EF_Core()
+        {
+            var result = Types.InAssembly(Api)
+                .That().ResideInNamespace("ShoppingCart.Api.Controllers")
+                .ShouldNot().HaveDependencyOnAny("ShoppingCart.Infrastructure", "Microsoft.EntityFrameworkCore")
+                .GetResult();
 
             Assert.True(result.IsSuccessful, Failing(result));
         }

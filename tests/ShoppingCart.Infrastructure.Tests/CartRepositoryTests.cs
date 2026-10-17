@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShoppingCart.Application.Common;
 using ShoppingCart.Domain.Carts;
 using ShoppingCart.Domain.Common;
 using ShoppingCart.Domain.Products;
@@ -106,7 +107,7 @@ namespace ShoppingCart.Infrastructure.Tests
             await repository.AddAsync(new Cart(customer, "USD"));
             await repository.AddAsync(new Cart(customer, "USD"));
 
-            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+            await Assert.ThrowsAsync<DataConflictException>(() => context.SaveChangesAsync());
         }
 
         [Fact]
@@ -117,7 +118,7 @@ namespace ShoppingCart.Infrastructure.Tests
             cart.AddItem(Guid.NewGuid(), "Ghost", Inr(10), 1);          // no such product
             await new CartRepository(context).AddAsync(cart);
 
-            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+            await Assert.ThrowsAsync<DataConflictException>(() => context.SaveChangesAsync());
         }
 
         [Fact]
@@ -130,7 +131,7 @@ namespace ShoppingCart.Infrastructure.Tests
             var loaded = await context.Products.FirstAsync(p => p.Id == product.Id);
             context.Products.Remove(loaded);
 
-            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+            await Assert.ThrowsAsync<DataConflictException>(() => context.SaveChangesAsync());
         }
     }
 }
