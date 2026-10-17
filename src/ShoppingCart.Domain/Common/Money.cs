@@ -5,6 +5,11 @@
         public decimal Amount { get; }
         public string Currency { get; }
 
+        private Money() // only for EF Core, which needs a way to create the object
+        {
+            Currency = default!;
+        }
+
         public Money(decimal amount, string currency)
         {
             if (amount < 0)
