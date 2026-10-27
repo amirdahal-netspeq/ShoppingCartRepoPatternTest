@@ -4,11 +4,15 @@ using ShoppingCart.Infrastructure.Persistence.Queries;
 
 namespace ShoppingCart.Infrastructure.Tests
 {
-    public class ProductQueriesTest : IDisposable
+    [Collection("Database")]
+    public class ProductQueriesTest : IAsyncLifetime
     {
-        private readonly SqlServerTestDatabase _db = new();
+        private readonly SqlServerFixture _db = new();
 
-        public void Dispose() => _db.Dispose();
+        public ProductQueriesTest(SqlServerFixture db) => _db = db;
+
+        public Task InitializeAsync() => _db.ResetAsync();       // every test starts from empty tables
+        public Task DisposeAsync() => Task.CompletedTask;
 
         private async Task Seed(params string[] names)
         {

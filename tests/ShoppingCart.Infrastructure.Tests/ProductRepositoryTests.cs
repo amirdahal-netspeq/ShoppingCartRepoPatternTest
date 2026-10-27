@@ -5,10 +5,16 @@ using ShoppingCart.Infrastructure.Persistence.Repositories;
 
 namespace ShoppingCart.Infrastructure.Tests
 {
-    public class ProductRepositoryTests : IDisposable
+    [Collection("Database")]
+    public class ProductRepositoryTests : IAsyncLifetime
     {
-        private readonly SqlServerTestDatabase _db = new();
-        public void Dispose() => _db.Dispose();
+        private readonly SqlServerFixture _db = new();
+        public ProductRepositoryTests(SqlServerFixture db) => _db = db;
+
+        public Task InitializeAsync() => _db.ResetAsync();
+
+        public Task DisposeAsync() => Task.CompletedTask;
+
 
         private static Product NewProduct(string name = "Keyboard", decimal price = 49.99m, int stock = 10)
             => new(name, null, new Money(price, "INR"), stock);
@@ -61,5 +67,6 @@ namespace ShoppingCart.Infrastructure.Tests
 
             await Assert.ThrowsAsync<DataConflictException>(() => context.SaveChangesAsync());
         }
+
     }
 }
